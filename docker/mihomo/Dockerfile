@@ -6,7 +6,7 @@ ARG REDIRECT_PKG_HANDLER_VERSION
 ARG REDIRECT_PKG_URL=https://github.com/ThisSeanZhang/landscape/releases/download/${REDIRECT_PKG_HANDLER_VERSION}/redirect_pkg_handler-x86_64-musl
 
 RUN apk update && \
-    apk add --no-cache libgcc libelf s6-overlay
+    apk add --no-cache libgcc libelf s6-overlay iptables
 
 RUN wget -O /redirect_pkg_handler ${REDIRECT_PKG_URL} && \
     chmod +x /redirect_pkg_handler
