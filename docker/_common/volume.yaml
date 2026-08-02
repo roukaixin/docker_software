@@ -17,3 +17,9 @@ volumes:
       type: none
       o: bind
       device: ${QBITTORRENT_DATA_DIR}
+  jellyfin:
+    name: jellyfin
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME}/.docker/volumes/jellyfin

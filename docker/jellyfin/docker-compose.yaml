@@ -1,26 +1,20 @@
-name: homelab-services
-
 include:
-  - ../_common/network.yaml
   - ../_common/volume.yaml
 
 services:
   jellyfin:
-    image: "ghcr.io/jellyfin/jellyfin:10.11.3"
+    image: "ghcr.io/jellyfin/jellyfin:10.11.11"
     container_name: "jellyfin"
     hostname: "jellyfin"
-    networks:
-      - homelab
     volumes:
       - "./config/jellyfin:/config"
       - "./cache:/cache"
       - "/usr/share/fonts:/usr/share/fonts:ro"
-      - "./data:/media/jellyfin"
+      - "jellyfin:/media/jellyfin"
       - "qbittorrent:/media/qbittorrent"
     restart: 'unless-stopped'
     ports:
       - "8096:8096"
-    user: "${UID}:${GID}"
     depends_on:
       - metatube
     extra_hosts:
@@ -40,8 +34,6 @@ services:
     container_name: "metatube"
     hostname: "metatube"
     restart: 'unless-stopped'
-    networks:
-      - homelab
     volumes:
       - ./config/metatube:/config
     environment:
