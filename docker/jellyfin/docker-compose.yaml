@@ -1,15 +1,11 @@
-include:
-  - ../_common/volume.yaml
-
 services:
   jellyfin:
-    image: "ghcr.io/jellyfin/jellyfin:10.11.11"
+    image: "ghcr.io/jellyfin/jellyfin:12.0"
     container_name: "jellyfin"
     hostname: "jellyfin"
     volumes:
       - "./config/jellyfin:/config"
       - "./cache:/cache"
-      - "/usr/share/fonts:/usr/share/fonts:ro"
       - "jellyfin:/media/jellyfin"
       - "qbittorrent:/media/qbittorrent"
     restart: 'unless-stopped'
@@ -50,3 +46,18 @@ services:
       options:
         max-size: "2m"
         max-file: "1"
+
+volumes:
+  jellyfin:
+    name: jellyfin
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME}/.docker/volumes/jellyfin
+
+  qbittorrent:
+    name: qbittorrent
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME}/.docker/volumes/qbittorrent
